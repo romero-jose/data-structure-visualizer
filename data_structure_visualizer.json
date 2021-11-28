@@ -1,0 +1,5 @@
+{
+  "load_extensions": {
+    "data_structure_visualizer/extension": true
+  }
+}

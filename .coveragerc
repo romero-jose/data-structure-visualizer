@@ -1,0 +1,2 @@
+[run]
+omit = data_structure_visualizer/tests/*
