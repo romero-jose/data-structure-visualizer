@@ -51,15 +51,6 @@ export function init(el: HTMLElement): void {
     controls.enableRotate = false;
     controls.enableDamping = false;
 
-    animate_add_node(0, "0")
-        .then(() => animate_add_node(1, "1"))
-        .then(() => animate_add_node(2, "2"))
-        .then(() => animate_add_node(3, "3"))
-        .then(() => animate_add_node(4, "4"))
-        .then(() => animate_add_node(5, "5"))
-        .then(() => animate_add_node(6, "6"))
-        ;
-
     window.addEventListener('resize', onWindowResize);
 }
 
@@ -72,7 +63,7 @@ function configure_actions(actions: AnimationActionRecord) {
     });
 }
 
-function animate_add_node(num_nodes: number, value: string) {
+export function animate_add_node(num_nodes: number, value: string) {
     return new Promise<void>((resolve, reject) => {
         // Create iterator arrow
         const iterator_arrow_group = new three.Group();

@@ -9,7 +9,7 @@ TODO: Add module docstring
 """
 
 from ipywidgets import DOMWidget, ValueWidget
-from traitlets import Unicode
+from traitlets.traitlets import List, Unicode
 from ._frontend import module_name, module_version
 
 
@@ -23,4 +23,4 @@ class LinkedListWidget(DOMWidget, ValueWidget):
     _view_module = Unicode(module_name).tag(sync=True)
     _view_module_version = Unicode(module_version).tag(sync=True)
 
-    value = Unicode('First node').tag(sync=True)
+    linked_list = List(Unicode, ['0', '1', '2', '3', '4']).tag(sync=True)
