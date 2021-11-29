@@ -12,6 +12,8 @@ import { MODULE_NAME, MODULE_VERSION } from './version';
 // Import the CSS
 import '../css/widget.css';
 
+import {init, animate} from './visualizations';
+
 export class LinkedListModel extends DOMWidgetModel {
   defaults() {
     return {
@@ -40,14 +42,15 @@ export class LinkedListModel extends DOMWidgetModel {
 }
 
 export class LinkedListView extends DOMWidgetView {
-  private _linkedListInput: HTMLInputElement;
+  private _linkedList: HTMLDivElement;
 
   render() {
-    this._linkedListInput = document.createElement('input');
-    this._linkedListInput.type = 'text';
-    this._linkedListInput.value = 'First node';
-    this._linkedListInput.disabled = true;
-    this.el.appendChild(this._linkedListInput);
+  
+    this._linkedList = document.createElement('div');
+    this.el.appendChild(this._linkedList);
+
+    init(this._linkedList);
+    animate();
 
     this.el.classList.add('custom-widget');
 
@@ -56,6 +59,6 @@ export class LinkedListView extends DOMWidgetView {
   }
 
   value_changed() {
-    this.el.textContent = this.model.get('value');
+    animate();
   }
 }
