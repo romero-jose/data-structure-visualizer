@@ -12,10 +12,10 @@ import { MODULE_NAME, MODULE_VERSION } from './version';
 // Import the CSS
 import '../css/widget.css';
 
-import {init, animate, animate_add_node} from './visualizations';
+import { init, animate, animate_add_node } from './visualizations';
 
 export class LinkedListModel extends DOMWidgetModel {
-  defaults() {
+  defaults(): any {
     return {
       ...super.defaults(),
       _model_name: LinkedListModel.model_name,
@@ -40,9 +40,9 @@ export class LinkedListModel extends DOMWidgetModel {
   static view_module = MODULE_NAME; // Set to null if no view
   static view_module_version = MODULE_VERSION;
 
-  linked_list : string[];
+  linked_list: string[];
 
-  get_linked_list() {
+  get_linked_list(): Array<string> {
     return this.linked_list;
   }
 }
@@ -50,8 +50,7 @@ export class LinkedListModel extends DOMWidgetModel {
 export class LinkedListView extends DOMWidgetView {
   private _linkedList: HTMLDivElement;
 
-  render() {
-  
+  render(): void {
     this._linkedList = document.createElement('div');
     this.el.appendChild(this._linkedList);
 
@@ -59,12 +58,14 @@ export class LinkedListView extends DOMWidgetView {
 
     const list = this.model.get('linked_list') as Array<string>;
 
-    let promise = new Promise<void>((resolve, _) => setTimeout(() => resolve(), 0));
+    let promise = new Promise<void>((resolve, _) =>
+      setTimeout(() => resolve(), 0)
+    );
     let count = 0;
 
-    list.forEach(el =>
-      promise = promise.then(() => animate_add_node(count++, el))
-    )
+    list.forEach(
+      (el) => (promise = promise.then(() => animate_add_node(count++, el)))
+    );
 
     animate();
 
@@ -74,7 +75,7 @@ export class LinkedListView extends DOMWidgetView {
     this.model.on('change:value', this.value_changed, this);
   }
 
-  value_changed() {
+  value_changed(): void {
     // animate();
   }
 }
