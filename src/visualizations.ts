@@ -54,16 +54,13 @@ export function init(el: HTMLElement): void {
     window.addEventListener('resize', onWindowResize);
 }
 
-type AnimationActionRecord = Record<string, AnimationAction>
-
-function configure_actions(actions: AnimationActionRecord) {
-    Object.keys(actions).forEach(action => {
-        actions[action].clampWhenFinished = true;
-        actions[action].loop = three.LoopOnce;
-    });
+export function animate(): void {
+    requestAnimationFrame(animate);
+    render();
 }
 
-export function animate_add_node(num_nodes: number, value: string) {
+
+export function animate_add_node(num_nodes: number, value: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         // Create iterator arrow
         const iterator_arrow_group = new three.Group();
@@ -151,6 +148,15 @@ export function animate_add_node(num_nodes: number, value: string) {
         console.log("Iteration start");
         mixers.push(iterator_arrow_mixer);
         iterator_mediator.play();
+    });
+}
+
+type AnimationActionRecord = Record<string, AnimationAction>
+
+function configure_actions(actions: AnimationActionRecord) {
+    Object.keys(actions).forEach(action => {
+        actions[action].clampWhenFinished = true;
+        actions[action].loop = three.LoopOnce;
     });
 }
 
@@ -253,11 +259,6 @@ function onWindowResize(): void {
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     labelRenderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-export function animate() {
-    requestAnimationFrame(animate);
-    render();
 }
 
 function render() {
